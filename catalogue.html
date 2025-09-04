@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AutoRex - Catalogue de véhicules</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: {
+						montserrat: ['Montserrat', 'sans-serif'],
+					},
+					colors: {
+						primary: '#1a1a1a',
+						secondary: '#ff6b35',
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		.rain-element {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			background-color: rgba(255, 107, 53, 0.7);
+			clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+			animation: rain-fall linear infinite;
+		}
+
+		@keyframes rain-fall {
+			0% {
+				transform: translateY(-100px) rotateX(0deg) rotateY(0deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 1;
+			}
+
+			90% {
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(calc(100vh + 100px)) rotateX(360deg) rotateY(360deg);
+				opacity: 0;
+			}
+		}
+
+		.car-card {
+			transition: all 0.3s ease;
+		}
+
+		.car-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		}
+	</style>
+</head>
+
+<body class="font-montserrat bg-gray-100 text-gray-800">
+	<!-- Navigation -->
+	<nav class="navbar fixed top-0 w-full bg-white bg-opacity-95 shadow-md z-50 transition-all duration-300">
+		<div class="nav-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16">
+				<div class="logo-container">
+					<div class="logo-3d flex items-center gap-2 cursor-pointer">
+						<div class="triangle relative">
+							<div
+								class="w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-primary transform transition-transform duration-600">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[333] transform translate-z-[-10px]">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[0d0d0d] transform rotate-x-90 translate-z-[21.5px]">
+							</div>
+						</div>
+						<span class="logo-text text-xl font-bold text-primary tracking-wide">AutoRex</span>
+					</div>
+				</div>
+				<ul class="nav-menu flex space-x-8">
+					<li><a href="index.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Accueil</a>
+					</li>
+					<li><a href="#"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Catalogue</a>
+					</li>
+					<li><a href="index.html#about"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">À
+							propos</a></li>
+					<li><a href="index.html#contacts"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Contacts</a>
+					</li>
+					<li><a href="admin.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Admin</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Header -->
+	<header class="pt-24 pb-12 bg-gradient-to-r from-secondary to-orange-500 text-white">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<h1 class="text-3xl md:text-4xl font-bold mb-2">Notre catalogue de véhicules</h1>
+			<p class="text-lg opacity-90">Découvrez notre sélection de voitures d'occasion</p>
+		</div>
+	</header>
+
+	<!-- Main Content -->
+	<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div class="flex flex-col lg:flex-row gap-8">
+			<!-- Filters Sidebar -->
+			<aside class="lg:w-1/4">
+				<div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+					<h2 class="text-xl font-bold text-primary mb-6">Filtres</h2>
+
+					<!-- Search -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Recherche</label>
+						<input type="text" id="searchInput" placeholder="Marque, modèle..."
+							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+					</div>
+
+					<!-- Brand Filter -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Marque</label>
+						<select id="brandFilter"
+							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+							<option value="">Toutes les marques</option>
+							<option value="toyota">Toyota</option>
+							<option value="bmw">BMW</option>
+							<option value="mercedes">Mercedes</option>
+							<option value="audi">Audi</option>
+							<option value="volkswagen">Volkswagen</option>
+						</select>
+					</div>
+
+					<!-- Price Range -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Prix (€)</label>
+						<div class="flex items-center space-x-2">
+							<input type="number" id="minPrice" placeholder="Min"
+								class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+							<span class="text-gray-500">-</span>
+							<input type="number" id="maxPrice" placeholder="Max"
+								class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+						</div>
+					</div>
+
+					<!-- Year Range -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+						<div class="flex items-center space-x-2">
+							<input type="number" id="minYear" placeholder="Min"
+								class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+							<span class="text-gray-500">-</span>
+							<input type="number" id="maxYear" placeholder="Max"
+								class="w-1/2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+						</div>
+					</div>
+
+					<!-- Mileage -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Kilométrage (km)</label>
+						<input type="number" id="mileage" placeholder="Max"
+							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+					</div>
+
+					<!-- Fuel Type -->
+					<div class="mb-6">
+						<label class="block text-sm font-medium text-gray-700 mb-2">Carburant</label>
+						<select id="fuelFilter"
+							class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+							<option value="">Tous types</option>
+							<option value="essence">Essence</option>
+							<option value="diesel">Diesel</option>
+							<option value="hybride">Hybride</option>
+							<option value="electrique">Électrique</option>
+						</select>
+					</div>
+
+					<!-- Apply Filters Button -->
+					<button id="applyFilters"
+						class="w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+						Appliquer les filtres
+					</button>
+
+					<!-- Reset Filters Button -->
+					<button id="resetFilters"
+						class="w-full mt-3 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-300">
+						Réinitialiser
+					</button>
+				</div>
+			</aside>
+
+			<!-- Cars Grid -->
+			<div class="lg:w-3/4">
+				<div class="mb-6 flex justify-between items-center">
+					<p class="text-gray-600">
+						<span id="carCount">12</span> véhicules trouvés
+					</p>
+					<select id="sortBy"
+						class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+						<option value="default">Par défaut</option>
+						<option value="price-asc">Prix croissant</option>
+						<option value="price-desc">Prix décroissant</option>
+						<option value="year-desc">Année décroissante</option>
+						<option value="year-asc">Année croissante</option>
+						<option value="mileage-asc">Kilométrage croissant</option>
+					</select>
+				</div>
+
+				<div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<!-- Car Card 1 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="toyota"
+						data-price="1200000" data-year="2018" data-mileage="45000" data-fuel="essence">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">Toyota Camry</h3>
+							<p class="text-gray-600 mb-1">2018 • 45 000 km</p>
+							<p class="text-gray-600 mb-1">Essence</p>
+							<p class="text-secondary font-bold text-lg mt-3">1 200 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+
+					<!-- Car Card 2 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="bmw" data-price="2800000"
+						data-year="2019" data-mileage="30000" data-fuel="diesel">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">BMW X5</h3>
+							<p class="text-gray-600 mb-1">2019 • 30 000 km</p>
+							<p class="text-gray-600 mb-1">Diesel</p>
+							<p class="text-secondary font-bold text-lg mt-3">2 800 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+
+					<!-- Car Card 3 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="mercedes"
+						data-price="2500000" data-year="2020" data-mileage="25000" data-fuel="hybride">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">Mercedes C-Class</h3>
+							<p class="text-gray-600 mb-1">2020 • 25 000 km</p>
+							<p class="text-gray-600 mb-1">Hybride</p>
+							<p class="text-secondary font-bold text-lg mt-3">2 500 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+
+					<!-- Car Card 4 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="audi"
+						data-price="2200000" data-year="2019" data-mileage="35000" data-fuel="essence">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">Audi A4</h3>
+							<p class="text-gray-600 mb-1">2019 • 35 000 km</p>
+							<p class="text-gray-600 mb-1">Essence</p>
+							<p class="text-secondary font-bold text-lg mt-3">2 200 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+
+					<!-- Car Card 5 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="volkswagen"
+						data-price="1800000" data-year="2020" data-mileage="20000" data-fuel="diesel">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">Volkswagen Golf</h3>
+							<p class="text-gray-600 mb-1">2020 • 20 000 km</p>
+							<p class="text-gray-600 mb-1">Diesel</p>
+							<p class="text-secondary font-bold text-lg mt-3">1 800 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+
+					<!-- Car Card 6 -->
+					<div class="car-card bg-white rounded-lg shadow-md overflow-hidden" data-brand="toyota"
+						data-price="1500000" data-year="2021" data-mileage="15000" data-fuel="hybride">
+						<div class="car-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+						<div class="p-6">
+							<h3 class="text-xl font-semibold text-primary mb-2">Toyota RAV4</h3>
+							<p class="text-gray-600 mb-1">2021 • 15 000 km</p>
+							<p class="text-gray-600 mb-1">Hybride</p>
+							<p class="text-secondary font-bold text-lg mt-3">1 500 000 €</p>
+							<button
+								class="mt-4 w-full bg-secondary text-white py-2 px-4 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+								Voir les détails
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Load More Button -->
+				<div class="mt-8 text-center">
+					<button id="loadMore"
+						class="bg-secondary text-white py-3 px-8 rounded-lg font-medium hover:bg-orange-600 transition-colors duration-300">
+						Charger plus de véhicules
+					</button>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- 3D Rain Elements -->
+	<div class="rain-container fixed top-0 left-0 w-full h-full pointer-events-none z-1"></div>
+
+	<script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AutoRex - Administration</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: {
+						montserrat: ['Montserrat', 'sans-serif'],
+					},
+					colors: {
+						primary: '#1a1a1a',
+						secondary: '#ff6b35',
+					}
+				}
+			}
+		}
+	</script>
+</head>
+
+<body class="font-montserrat bg-gray-100 text-gray-800">
+	<!-- Admin Navigation -->
+	<nav class="bg-primary text-white">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex items-center">
+					<div class="flex items-center gap-2">
+						<div class="triangle relative">
+							<div
+								class="w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-white">
+							</div>
+						</div>
+						<span class="text-xl font-bold">AutoRex Admin</span>
+					</div>
+				</div>
+				<div class="flex items-center space-x-4">
+					<a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Site Web</a>
+					<button class="px-4 py-2 bg-red-600 rounded-md text-sm font-medium hover:bg-red-700">Déconnexion</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Admin Sidebar -->
+	<div class="flex h-screen pt-16">
+		<div class="hidden md:flex md:w-64 md:flex-col">
+			<div class="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
+				<div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+					<nav class="mt-5 flex-1 px-2 space-y-1">
+						<a href="#dashboard"
+							class="admin-nav-link bg-secondary text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+							<svg class="mr-4 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+								</path>
+							</svg>
+							Tableau de bord
+						</a>
+						<a href="#cars"
+							class="admin-nav-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+							<svg class="mr-4 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+								</path>
+							</svg>
+							Gestion des véhicules
+						</a>
+						<a href="#blog"
+							class="admin-nav-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+							<svg class="mr-4 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+								</path>
+							</svg>
+							Gestion du blog
+						</a>
+						<a href="#users"
+							class="admin-nav-link text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-base font-medium rounded-md">
+							<svg class="mr-4 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+								</path>
+							</svg>
+							Utilisateurs
+						</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<div class="flex-1 flex flex-col overflow-hidden">
+			<main class="flex-1 relative overflow-y-auto focus:outline-none">
+				<div class="py-6">
+					<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+						<!-- Dashboard Section -->
+						<div id="dashboard-section" class="admin-section">
+							<div class="px-4 py-6 sm:px-0">
+								<h1 class="text-2xl font-semibold text-primary mb-6">Tableau de bord</h1>
+								<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+									<!-- Stats Card 1 -->
+									<div class="bg-white overflow-hidden shadow rounded-lg">
+										<div class="px-4 py-5 sm:p-6">
+											<div class="flex items-center">
+												<div class="flex-shrink-0 bg-secondary rounded-md p-3">
+													<svg class="h-6 w-6 text-white" fill="none" stroke="currentColor"
+														viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+													</svg>
+												</div>
+												<div class="ml-5 w-0 flex-1">
+													<dl>
+														<dt class="text-sm font-medium text-gray-500 truncate">Véhicules actifs</dt>
+														<dd class="flex items-baseline">
+															<div class="text-2xl font-semibold text-primary">24</div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Stats Card 2 -->
+									<div class="bg-white overflow-hidden shadow rounded-lg">
+										<div class="px-4 py-5 sm:p-6">
+											<div class="flex items-center">
+												<div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+													<svg class="h-6 w-6 text-white" fill="none" stroke="currentColor"
+														viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z">
+														</path>
+													</svg>
+												</div>
+												<div class="ml-5 w-0 flex-1">
+													<dl>
+														<dt class="text-sm font-medium text-gray-500 truncate">Articles de blog</dt>
+														<dd class="flex items-baseline">
+															<div class="text-2xl font-semibold text-primary">12</div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Stats Card 3 -->
+									<div class="bg-white overflow-hidden shadow rounded-lg">
+										<div class="px-4 py-5 sm:p-6">
+											<div class="flex items-center">
+												<div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
+													<svg class="h-6 w-6 text-white" fill="none" stroke="currentColor"
+														viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+														</path>
+													</svg>
+												</div>
+												<div class="ml-5 w-0 flex-1">
+													<dl>
+														<dt class="text-sm font-medium text-gray-500 truncate">Utilisateurs</dt>
+														<dd class="flex items-baseline">
+															<div class="text-2xl font-semibold text-primary">156</div>
+														</dd>
+													</dl>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Cars Management Section -->
+						<div id="cars-section" class="admin-section hidden">
+							<div class="px-4 py-6 sm:px-0">
+								<div class="flex justify-between items-center mb-6">
+									<h1 class="text-2xl font-semibold text-primary">Gestion des véhicules</h1>
+									<button id="add-car-btn"
+										class="bg-secondary text-white px-4 py-2 rounded-md font-medium hover:bg-orange-600">
+										Ajouter un véhicule
+									</button>
+								</div>
+
+								<!-- Add/Edit Car Modal -->
+								<div id="car-modal"
+									class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+									<div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+										<div class="mt-3">
+											<h3 class="text-lg font-medium text-primary mb-4" id="car-modal-title">Ajouter un
+												véhicule</h3>
+											<form id="car-form">
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Marque</label>
+													<input type="text" id="car-brand"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Modèle</label>
+													<input type="text" id="car-model"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Année</label>
+													<input type="number" id="car-year"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Kilométrage</label>
+													<input type="number" id="car-mileage"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Prix (€)</label>
+													<input type="number" id="car-price"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Carburant</label>
+													<select id="car-fuel"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+														<option value="essence">Essence</option>
+														<option value="diesel">Diesel</option>
+														<option value="hybride">Hybride</option>
+														<option value="electrique">Électrique</option>
+													</select>
+												</div>
+												<div class="flex justify-end space-x-3">
+													<button type="button" id="cancel-car-btn"
+														class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+														Annuler
+													</button>
+													<button type="submit"
+														class="px-4 py-2 bg-secondary text-white rounded-md hover:bg-orange-600">
+														Enregistrer
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<!-- Cars Table -->
+								<div class="bg-white shadow overflow-hidden sm:rounded-md">
+									<ul class="divide-y divide-gray-200">
+										<li class="car-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="min-w-0 flex-1 flex items-center">
+															<div class="flex-shrink-0">
+																<div
+																	class="h-12 w-12 bg-secondary rounded-full flex items-center justify-center">
+																	<span class="text-white font-bold">T</span>
+																</div>
+															</div>
+															<div class="min-w-0 flex-1 px-4">
+																<p class="text-sm font-medium text-primary truncate">Toyota Camry</p>
+																<p class="text-sm text-gray-500">2018 • 45 000 km • Essence</p>
+															</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<p class="text-sm font-medium text-secondary">1 200 000 €</p>
+														<div class="flex space-x-2">
+															<button class="edit-car-btn text-indigo-600 hover:text-indigo-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+																	</path>
+																</svg>
+															</button>
+															<button class="delete-car-btn text-red-600 hover:text-red-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+																	</path>
+																</svg>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="car-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="min-w-0 flex-1 flex items-center">
+															<div class="flex-shrink-0">
+																<div
+																	class="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center">
+																	<span class="text-white font-bold">B</span>
+																</div>
+															</div>
+															<div class="min-w-0 flex-1 px-4">
+																<p class="text-sm font-medium text-primary truncate">BMW X5</p>
+																<p class="text-sm text-gray-500">2019 • 30 000 km • Diesel</p>
+															</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<p class="text-sm font-medium text-secondary">2 800 000 €</p>
+														<div class="flex space-x-2">
+															<button class="edit-car-btn text-indigo-600 hover:text-indigo-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+																	</path>
+																</svg>
+															</button>
+															<button class="delete-car-btn text-red-600 hover:text-red-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+																	</path>
+																</svg>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Blog Management Section -->
+						<div id="blog-section" class="admin-section hidden">
+							<div class="px-4 py-6 sm:px-0">
+								<div class="flex justify-between items-center mb-6">
+									<h1 class="text-2xl font-semibold text-primary">Gestion du blog</h1>
+									<button id="add-article-btn"
+										class="bg-secondary text-white px-4 py-2 rounded-md font-medium hover:bg-orange-600">
+										Ajouter un article
+									</button>
+								</div>
+
+								<!-- Add/Edit Article Modal -->
+								<div id="article-modal"
+									class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+									<div
+										class="relative top-10 mx-auto p-5 border w-full max-w-3xl shadow-lg rounded-md bg-white">
+										<div class="mt-3">
+											<h3 class="text-lg font-medium text-primary mb-4" id="article-modal-title">Ajouter un
+												article</h3>
+											<form id="article-form">
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+													<input type="text" id="article-title"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Catégorie</label>
+													<select id="article-category"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+														<option value="conseils">Conseils</option>
+														<option value="actualites">Actualités</option>
+														<option value="entretien">Entretien</option>
+														<option value="tests">Tests</option>
+													</select>
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Image de
+														couverture</label>
+													<input type="file" id="article-image"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+												</div>
+												<div class="mb-4">
+													<label class="block text-sm font-medium text-gray-700 mb-1">Contenu</label>
+													<textarea id="article-content" rows="10"
+														class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+														required></textarea>
+												</div>
+												<div class="mb-4">
+													<label class="flex items-center">
+														<input type="checkbox" id="article-published"
+															class="mr-2 h-4 w-4 text-secondary focus:ring-secondary border-gray-300 rounded">
+														<span class="text-sm text-gray-700">Publier maintenant</span>
+													</label>
+												</div>
+												<div class="flex justify-end space-x-3">
+													<button type="button" id="cancel-article-btn"
+														class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+														Annuler
+													</button>
+													<button type="submit"
+														class="px-4 py-2 bg-secondary text-white rounded-md hover:bg-orange-600">
+														Enregistrer
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<!-- Articles Table -->
+								<div class="bg-white shadow overflow-hidden sm:rounded-md">
+									<ul class="divide-y divide-gray-200">
+										<li class="article-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="min-w-0 flex-1 flex items-center">
+															<div class="flex-shrink-0">
+																<div
+																	class="h-12 w-12 bg-gradient-to-r from-secondary to-orange-500 rounded-lg">
+																</div>
+															</div>
+															<div class="min-w-0 flex-1 px-4">
+																<p class="text-sm font-medium text-primary truncate">Comment choisir
+																	votre première voiture</p>
+																<p class="text-sm text-gray-500">Catégorie: Conseils • Publié le:
+																	15/05/2024</p>
+															</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<span
+															class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+															Publié
+														</span>
+														<div class="flex space-x-2">
+															<button class="edit-article-btn text-indigo-600 hover:text-indigo-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+																	</path>
+																</svg>
+															</button>
+															<button class="delete-article-btn text-red-600 hover:text-red-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+																	</path>
+																</svg>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="article-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="min-w-0 flex-1 flex items-center">
+															<div class="flex-shrink-0">
+																<div
+																	class="h-12 w-12 bg-gradient-to-r from-secondary to-orange-500 rounded-lg">
+																</div>
+															</div>
+															<div class="min-w-0 flex-1 px-4">
+																<p class="text-sm font-medium text-primary truncate">Entretien
+																	saisonnier de votre voiture</p>
+																<p class="text-sm text-gray-500">Catégorie: Entretien • Publié le:
+																	10/05/2024</p>
+															</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<span
+															class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+															Publié
+														</span>
+														<div class="flex space-x-2">
+															<button class="edit-article-btn text-indigo-600 hover:text-indigo-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+																	</path>
+																</svg>
+															</button>
+															<button class="delete-article-btn text-red-600 hover:text-red-900">
+																<svg class="h-5 w-5" fill="none" stroke="currentColor"
+																	viewBox="0 0 24 24">
+																	<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																		d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+																	</path>
+																</svg>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Users Management Section -->
+						<div id="users-section" class="admin-section hidden">
+							<div class="px-4 py-6 sm:px-0">
+								<h1 class="text-2xl font-semibold text-primary mb-6">Gestion des utilisateurs</h1>
+								<div class="bg-white shadow overflow-hidden sm:rounded-md">
+									<ul class="divide-y divide-gray-200">
+										<li class="user-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="flex-shrink-0">
+															<div
+																class="h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
+																<span class="text-gray-700 font-medium">JD</span>
+															</div>
+														</div>
+														<div class="ml-4">
+															<div class="text-sm font-medium text-primary">Jean Dupont</div>
+															<div class="text-sm text-gray-500">jean.dupont@example.com</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<span
+															class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+															Client
+														</span>
+														<button class="text-indigo-600 hover:text-indigo-900 text-sm">
+															Voir les détails
+														</button>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="user-item">
+											<div class="px-4 py-4 sm:px-6">
+												<div class="flex items-center justify-between">
+													<div class="flex items-center">
+														<div class="flex-shrink-0">
+															<div
+																class="h-10 w-10 bg-gray-200 rounded-full flex items-center justify-center">
+																<span class="text-gray-700 font-medium">SM</span>
+															</div>
+														</div>
+														<div class="ml-4">
+															<div class="text-sm font-medium text-primary">Sophie Martin</div>
+															<div class="text-sm text-gray-500">sophie.martin@example.com</div>
+														</div>
+													</div>
+													<div class="flex items-center space-x-4">
+														<span
+															class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+															Admin
+														</span>
+														<button class="text-indigo-600 hover:text-indigo-900 text-sm">
+															Voir les détails
+														</button>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<script>
+		// Navigation functionality
+		document.querySelectorAll('.admin-nav-link').forEach(link => {
+			link.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				// Remove active class from all links
+				document.querySelectorAll('.admin-nav-link').forEach(l => {
+					l.classList.remove('bg-secondary', 'text-white');
+					l.classList.add('text-gray-600', 'hover:bg-gray-50', 'hover:text-gray-900');
+				});
+
+				// Add active class to clicked link
+				this.classList.remove('text-gray-600', 'hover:bg-gray-50', 'hover:text-gray-900');
+				this.classList.add('bg-secondary', 'text-white');
+
+				// Hide all sections
+				document.querySelectorAll('.admin-section').forEach(section => {
+					section.classList.add('hidden');
+				});
+
+				// Show corresponding section
+				const sectionId = this.getAttribute('href').substring(1) + '-section';
+				document.getElementById(sectionId).classList.remove('hidden');
+			});
+		});
+
+		// Car management
+		const carModal = document.getElementById('car-modal');
+		const carForm = document.getElementById('car-form');
+		const addCarBtn = document.getElementById('add-car-btn');
+		const cancelCarBtn = document.getElementById('cancel-car-btn');
+		const carModalTitle = document.getElementById('car-modal-title');
+
+		addCarBtn.addEventListener('click', () => {
+			carModalTitle.textContent = 'Ajouter un véhicule';
+			carForm.reset();
+			carModal.classList.remove('hidden');
+		});
+
+		cancelCarBtn.addEventListener('click', () => {
+			carModal.classList.add('hidden');
+		});
+
+		carForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			// Handle form submission
+			alert('Véhicule enregistré avec succès!');
+			carModal.classList.add('hidden');
+		});
+
+		// Edit car functionality
+		document.querySelectorAll('.edit-car-btn').forEach(btn => {
+			btn.addEventListener('click', function () {
+				carModalTitle.textContent = 'Modifier un véhicule';
+				carModal.classList.remove('hidden');
+				// Populate form with existing data
+			});
+		});
+
+		// Delete car functionality
+		document.querySelectorAll('.delete-car-btn').forEach(btn => {
+			btn.addEventListener('click', function () {
+				if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule?')) {
+					// Handle deletion
+					this.closest('.car-item').remove();
+				}
+			});
+		});
+
+		// Article management
+		const articleModal = document.getElementById('article-modal');
+		const articleForm = document.getElementById('article-form');
+		const addArticleBtn = document.getElementById('add-article-btn');
+		const cancelArticleBtn = document.getElementById('cancel-article-btn');
+		const articleModalTitle = document.getElementById('article-modal-title');
+
+		addArticleBtn.addEventListener('click', () => {
+			articleModalTitle.textContent = 'Ajouter un article';
+			articleForm.reset();
+			articleModal.classList.remove('hidden');
+		});
+
+		cancelArticleBtn.addEventListener('click', () => {
+			articleModal.classList.add('hidden');
+		});
+
+		articleForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+			// Handle form submission
+			alert('Article enregistré avec succès!');
+			articleModal.classList.add('hidden');
+		});
+
+		// Edit article functionality
+		document.querySelectorAll('.edit-article-btn').forEach(btn => {
+			btn.addEventListener('click', function () {
+				articleModalTitle.textContent = 'Modifier un article';
+				articleModal.classList.remove('hidden');
+				// Populate form with existing data
+			});
+		});
+
+		// Delete article functionality
+		document.querySelectorAll('.delete-article-btn').forEach(btn => {
+			btn.addEventListener('click', function () {
+				if (confirm('Êtes-vous sûr de vouloir supprimer cet article?')) {
+					// Handle deletion
+					this.closest('.article-item').remove();
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

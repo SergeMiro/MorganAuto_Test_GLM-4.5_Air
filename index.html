@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AutoRex - Sélection de voitures d'occasion</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: {
+						montserrat: ['Montserrat', 'sans-serif'],
+					},
+					colors: {
+						primary: '#1a1a1a',
+						secondary: '#ff6b35',
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		.rain-element {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			background-color: rgba(255, 107, 53, 0.7);
+			clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+			animation: rain-fall linear infinite;
+		}
+
+		@keyframes rain-fall {
+			0% {
+				transform: translateY(-100px) rotateX(0deg) rotateY(0deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 1;
+			}
+
+			90% {
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(calc(100vh + 100px)) rotateX(360deg) rotateY(360deg);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+
+<body class="font-montserrat bg-gray-100 text-gray-800">
+	<!-- Navigation -->
+	<nav class="navbar fixed top-0 w-full bg-white bg-opacity-95 shadow-md z-50 transition-all duration-300">
+		<div class="nav-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16">
+				<div class="logo-container">
+					<div class="logo-3d flex items-center gap-2 cursor-pointer">
+						<div class="triangle relative">
+							<div
+								class="w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-primary transform transition-transform duration-600">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[333] transform translate-z-[-10px]">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[0d0d0d] transform rotate-x-90 translate-z-[21.5px]">
+							</div>
+						</div>
+						<span class="logo-text text-xl font-bold text-primary tracking-wide">AutoRex</span>
+					</div>
+				</div>
+				<ul class="nav-menu flex space-x-8">
+					<li><a href="#home"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Accueil</a>
+					</li>
+					<li><a href="#catalogue"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Catalogue</a>
+					</li>
+					<li><a href="#about"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">À
+							propos</a></li>
+					<li><a href="#contacts"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Contacts</a>
+					</li>
+					<li><a href="admin.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Admin</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Hero Section -->
+	<section id="home"
+		class="hero min-h-screen flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+		<div class="hero-content max-w-2xl z-10">
+			<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary leading-tight mb-6">
+				Véhicules fiables<br>aux prix imbattables
+			</h1>
+			<p class="text-lg sm:text-xl text-gray-600 mb-8">
+				Trouvez la voiture parfaite adaptée à vos besoins
+			</p>
+			<a href="#catalogue"
+				class="cta-button inline-block px-8 py-4 bg-secondary text-white font-semibold rounded-full shadow-lg hover:bg-orange-600 transform hover:-translate-y-1 transition-all duration-300">
+				Voir le catalogue
+			</a>
+		</div>
+		<div class="car-silhouette hidden lg:block w-[500px] h-[300px] z-10">
+			<div class="car-3d w-full h-full"></div>
+		</div>
+	</section>
+
+	<!-- 3D Rain Elements -->
+	<div class="rain-container fixed top-0 left-0 w-full h-full pointer-events-none z-1"></div>
+
+	<!-- About Section -->
+	<section id="about" class="py-20 bg-white">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Pourquoi nous choisir</h2>
+			<div class="features grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div
+					class="feature-item text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+					<div
+						class="feature-icon w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+						✓</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Garantie qualité</h3>
+					<p class="text-gray-600">Chaque véhicule subit une vérification approfondie</p>
+				</div>
+				<div
+					class="feature-item text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+					<div
+						class="feature-icon w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+						✓</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Prix compétitifs</h3>
+					<p class="text-gray-600">Approvisionnement direct sans intermédiaires</p>
+				</div>
+				<div
+					class="feature-item text-center p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+					<div
+						class="feature-icon w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+						✓</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Support 24/7</h3>
+					<p class="text-gray-600">Assistance à toutes les étapes de l'achat</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Blog Section -->
+	<section class="py-20 bg-gray-50">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<h2 class="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Blog automobile</h2>
+			<div class="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<article
+					class="blog-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+					<div class="blog-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+					<div class="p-6">
+						<h3 class="text-xl font-semibold text-primary mb-2">Comment choisir votre première voiture</h3>
+						<p class="text-gray-600 mb-4">Conseils pratiques pour faire le bon choix lors de l'achat de votre
+							premier véhicule.</p>
+						<a href="blog.html" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</article>
+				<article
+					class="blog-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+					<div class="blog-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+					<div class="p-6">
+						<h3 class="text-xl font-semibold text-primary mb-2">Entretien saisonnier de votre voiture</h3>
+						<p class="text-gray-600 mb-4">Guide complet pour entretenir votre voiture selon les saisons.</p>
+						<a href="blog.html" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</article>
+				<article
+					class="blog-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+					<div class="blog-image h-48 bg-gradient-to-r from-secondary to-orange-500"></div>
+					<div class="p-6">
+						<h3 class="text-xl font-semibold text-primary mb-2">Les tendances du marché automobile 2024</h3>
+						<p class="text-gray-600 mb-4">Découvrez les dernières tendances et innovations du marché automobile.
+						</p>
+						<a href="blog.html" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer id="contacts" class="bg-primary text-white py-12">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="footer-grid grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+				<div class="footer-section">
+					<h3 class="text-xl font-semibold mb-4">AutoRex</h3>
+					<p class="text-gray-300">Votre partenaire de confiance dans le monde automobile</p>
+				</div>
+				<div class="footer-section">
+					<h4 class="text-lg font-semibold mb-4">Contacts</h4>
+					<p class="text-gray-300 mb-2">Téléphone: +33 1 23 45 67 89</p>
+					<p class="text-gray-300 mb-2">Email: info@autorex.fr</p>
+				</div>
+				<div class="footer-section">
+					<h4 class="text-lg font-semibold mb-4">Adresse</h4>
+					<p class="text-gray-300">75 Paris Cedex 16, France</p>
+				</div>
+			</div>
+			<div class="footer-border-t border-gray-700 pt-6 text-center text-gray-400">
+				<p>&copy; 2024 AutoRex. Tous droits réservés.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AutoRex - Blog automobile</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					fontFamily: {
+						montserrat: ['Montserrat', 'sans-serif'],
+					},
+					colors: {
+						primary: '#1a1a1a',
+						secondary: '#ff6b35',
+					}
+				}
+			}
+		}
+	</script>
+	<style>
+		.rain-element {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			background-color: rgba(255, 107, 53, 0.7);
+			clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+			animation: rain-fall linear infinite;
+		}
+
+		@keyframes rain-fall {
+			0% {
+				transform: translateY(-100px) rotateX(0deg) rotateY(0deg);
+				opacity: 0;
+			}
+
+			10% {
+				opacity: 1;
+			}
+
+			90% {
+				opacity: 1;
+			}
+
+			100% {
+				transform: translateY(calc(100vh + 100px)) rotateX(360deg) rotateY(360deg);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+
+<body class="font-montserrat bg-gray-100 text-gray-800">
+	<!-- Navigation -->
+	<nav class="navbar fixed top-0 w-full bg-white bg-opacity-95 shadow-md z-50 transition-all duration-300">
+		<div class="nav-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16">
+				<div class="logo-container">
+					<div class="logo-3d flex items-center gap-2 cursor-pointer">
+						<div class="triangle relative">
+							<div
+								class="w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-primary transform transition-transform duration-600">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[333] transform translate-z-[-10px]">
+							</div>
+							<div
+								class="absolute top-0 -left-[25px] w-0 h-0 border-l-[25px] border-l-transparent border-r-[25px] border-r-transparent border-b-[43px] border-b-[0d0d0d] transform rotate-x-90 translate-z-[21.5px]">
+							</div>
+						</div>
+						<span class="logo-text text-xl font-bold text-primary tracking-wide">AutoRex</span>
+					</div>
+				</div>
+				<ul class="nav-menu flex space-x-8">
+					<li><a href="index.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Accueil</a>
+					</li>
+					<li><a href="catalogue.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Catalogue</a>
+					</li>
+					<li><a href="index.html#about"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">À
+							propos</a></li>
+					<li><a href="index.html#contacts"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Contacts</a>
+					</li>
+					<li><a href="admin.html"
+							class="nav-link relative text-gray-600 font-medium hover:text-secondary transition-colors duration-300">Admin</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Blog Header -->
+	<header class="pt-24 pb-12 bg-gradient-to-r from-secondary to-orange-500 text-white">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<h1 class="text-3xl md:text-4xl font-bold mb-2">Blog automobile</h1>
+			<p class="text-lg opacity-90">Toutes les actualités et conseils pour les passionnés d'automobile</p>
+		</div>
+	</header>
+
+	<!-- Blog Categories -->
+	<section class="py-8 bg-white shadow-sm">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex flex-wrap gap-4 justify-center">
+				<button
+					class="category-btn px-6 py-2 bg-secondary text-white rounded-full font-medium hover:bg-orange-600 transition-colors duration-300">
+					Tous les articles
+				</button>
+				<button
+					class="category-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors duration-300">
+					Conseils
+				</button>
+				<button
+					class="category-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors duration-300">
+					Actualités
+				</button>
+				<button
+					class="category-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors duration-300">
+					Entretien
+				</button>
+				<button
+					class="category-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors duration-300">
+					Tests
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Blog Posts Grid -->
+	<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<!-- Blog Post 1 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">15 mai 2024</span>
+						<span>5 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Comment choisir votre première voiture</h3>
+					<p class="text-gray-600 mb-4">
+						Trouver la voiture parfaite pour ses débuts sur la route peut sembler intimidant. Ce guide pratique
+						vous aidera à naviguer à travers les différentes options et à faire le choix le plus adapté à vos
+						besoins et à votre budget.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Conseils</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Blog Post 2 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">10 mai 2024</span>
+						<span>7 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Entretien saisonnier de votre voiture</h3>
+					<p class="text-gray-600 mb-4">
+						L'entretien régulier de votre véhicule est essentiel pour garantir sa longévité et sa sécurité.
+						Découvrez notre guide complet pour entretenir votre voiture selon les saisons.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">Entretien</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Blog Post 3 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">5 mai 2024</span>
+						<span>6 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Les tendances du marché automobile 2024</h3>
+					<p class="text-gray-600 mb-4">
+						Découvrez les dernières innovations et tendances qui façonnent l'industrie automobile en 2024, des
+						véhicules électriques aux technologies de conduite autonome.
+					</p>
+					<div class="flex items-center justify-between">
+						<span
+							class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">Actualités</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Blog Post 4 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">28 avril 2024</span>
+						<span>8 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Test complet : Toyota Camry 2024</h3>
+					<p class="text-gray-600 mb-4">
+						Nous avons testé la nouvelle Toyota Camry 2024 pour vous. Découvrez ses points forts, ses faiblesses
+						et si elle mérite sa place dans votre garage.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full">Tests</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Blog Post 5 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">22 avril 2024</span>
+						<span>4 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">Guide d'achat : SUV vs Berline</h3>
+					<p class="text-gray-600 mb-4">
+						Berline ou SUV ? Ce choix difficile dépend de vos besoins, de votre budget et de votre style de vie.
+						Notre guide vous aide à faire le bon choix.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Conseils</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Blog Post 6 -->
+			<article
+				class="blog-post bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+				<div class="blog-image h-56 bg-gradient-to-r from-secondary to-orange-500"></div>
+				<div class="p-6">
+					<div class="flex items-center text-sm text-gray-500 mb-2">
+						<span class="mr-4">18 avril 2024</span>
+						<span>5 min de lecture</span>
+					</div>
+					<h3 class="text-xl font-semibold text-primary mb-3">L'avenir de l'automobile électrique</h3>
+					<p class="text-gray-600 mb-4">
+						L'électrique est-il la solution d'avenir ? Nous explorons les avantages, les inconvénients et les
+						perspectives du marché des véhicules électriques.
+					</p>
+					<div class="flex items-center justify-between">
+						<span
+							class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">Actualités</span>
+						<a href="#" class="text-secondary font-medium hover:underline">Lire la suite →</a>
+					</div>
+				</div>
+			</article>
+		</div>
+
+		<!-- Pagination -->
+		<div class="mt-12 flex justify-center">
+			<nav class="flex items-center space-x-2">
+				<button class="px-3 py-2 text-gray-500 hover:text-gray-700">
+					<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+					</svg>
+				</button>
+				<button class="px-4 py-2 bg-secondary text-white rounded-md">1</button>
+				<button class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">2</button>
+				<button class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">3</button>
+				<span class="px-2 py-2 text-gray-500">...</span>
+				<button class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md">8</button>
+				<button class="px-3 py-2 text-gray-500 hover:text-gray-700">
+					<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+					</svg>
+				</button>
+			</nav>
+		</div>
+	</main>
+
+	<!-- Newsletter Section -->
+	<section class="py-16 bg-primary text-white">
+		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="max-w-3xl mx-auto text-center">
+				<h2 class="text-2xl md:text-3xl font-bold mb-4">Restez informé</h2>
+				<p class="text-gray-300 mb-8">Inscrivez-vous à notre newsletter pour recevoir les dernières actualités et
+					offres exclusives</p>
+				<form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+					<input type="email" placeholder="Votre adresse email"
+						class="flex-grow px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary">
+					<button type="submit"
+						class="px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-300 whitespace-nowrap">
+						S'inscrire
+					</button>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<!-- 3D Rain Elements -->
+	<div class="rain-container fixed top-0 left-0 w-full h-full pointer-events-none z-1"></div>
+
+	<script>
+		// Category filter functionality
+		document.querySelectorAll('.category-btn').forEach(btn => {
+			btn.addEventListener('click', function () {
+				// Remove active class from all buttons
+				document.querySelectorAll('.category-btn').forEach(b => {
+					b.classList.remove('bg-secondary', 'text-white');
+					b.classList.add('bg-gray-200', 'text-gray-700');
+				});
+
+				// Add active class to clicked button
+				this.classList.remove('bg-gray-200', 'text-gray-700');
+				this.classList.add('bg-secondary', 'text-white');
+
+				// Filter blog posts (in a real implementation, this would filter the posts)
+				const category = this.textContent.trim();
+				console.log('Filtering by category:', category);
+			});
+		});
+
+		// Newsletter form submission
+		document.querySelector('form').addEventListener('submit', function (e) {
+			e.preventDefault();
+			const email = this.querySelector('input[type="email"]').value;
+			if (email) {
+				alert(`Merci pour votre inscription ! Nous vous enverrons les actualités à ${email}`);
+				this.reset();
+			}
+		});
+	</script>
+</body>
+
+</html>
