@@ -1,3 +1,15 @@
 {
-  "/page": "app/page.js"
+  "/api/blog-posts/[slug]/route": "app/api/blog-posts/[slug]/route.js",
+  "/api/blog-posts/route": "app/api/blog-posts/route.js",
+  "/api/cars/route": "app/api/cars/route.js",
+  "/api/cars/[id]/route": "app/api/cars/[id]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/blog/page": "app/admin/blog/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/cars/page": "app/admin/cars/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/cars/[id]/page": "app/cars/[id]/page.js",
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/page": "app/page.js",
+  "/catalogue/page": "app/catalogue/page.js"
 }

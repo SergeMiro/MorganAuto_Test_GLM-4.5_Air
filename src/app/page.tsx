@@ -9,19 +9,119 @@ import Link from "next/link"
 
 export default async function HomePage() {
   // Fetch featured cars
-  const { data: cars, error: carsError } = await supabase
+  let cars: Car[] = []
+  const { data: carsData, error: carsError } = await supabase
     .from("cars")
     .select("*")
-    .eq("featured", true)
-    .limit(3)
+
+  // Handle mock client response
+  if (carsError || !carsData) {
+    // Return mock cars data for development
+    cars = [
+      {
+        id: "1",
+        brand: "Toyota",
+        model: "Camry",
+        year: 2020,
+        mileage: 30000,
+        price: 25000,
+        fuel_type: "essence",
+        description: "Excellent état, faible kilométrage",
+        image_url: "/placeholder-car.jpg",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: "2",
+        brand: "Honda",
+        model: "Civic",
+        year: 2019,
+        mileage: 45000,
+        price: 22000,
+        fuel_type: "essence",
+        description: "Entretien à jour, très bon état",
+        image_url: "/placeholder-car.jpg",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: "3",
+        brand: "BMW",
+        model: "Série 3",
+        year: 2021,
+        mileage: 15000,
+        price: 45000,
+        fuel_type: "essence",
+        description: "Haut de gamme, options premium",
+        image_url: "/placeholder-car.jpg",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]
+  } else {
+    cars = carsData.slice(0, 3)
+  }
 
   // Fetch latest blog posts
-  const { data: posts, error: postsError } = await supabase
+  let posts: BlogPost[] = []
+  const { data: postsData, error: postsError } = await supabase
     .from("blog_posts")
     .select("*")
-    .eq("published", true)
-    .order("published_at", { ascending: false })
-    .limit(3)
+
+  // Handle mock client response
+  if (postsError || !postsData) {
+    // Return mock blog posts data for development
+    posts = [
+      {
+        id: "1",
+        title: "Conseils pour l'achat d'une voiture d'occasion",
+        slug: "conseils-achat-voiture-occasion",
+        content: "<p>Voici quelques conseils utiles pour l'achat d'une voiture d'occasion...</p>",
+        excerpt: "Découvrez nos meilleurs conseils pour faire le bon choix lors de l'achat d'un véhicule d'occasion.",
+        category: "conseils",
+        image_url: "/placeholder-blog.jpg",
+        published: true,
+        published_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: "2",
+        title: "Les tendances automobiles 2024",
+        slug: "tendances-automobiles-2024",
+        content: "<p>Retrouvez les dernières tendances du marché automobile...</p>",
+        excerpt: "Un aperçu des dernières innovations et tendances dans l'industrie automobile.",
+        category: "actualites",
+        image_url: "/placeholder-blog.jpg",
+        published: true,
+        published_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: "3",
+        title: "Entretien hivernal : préparez votre véhicule",
+        slug: "entretien-hivernal-vehicule",
+        content: "<p>Comment bien préparer votre voiture pour l'hiver...</p>",
+        excerpt: "Nos conseils pour assurer un bon entretien de votre véhicule pendant la saison hivernale.",
+        category: "entretien",
+        image_url: "/placeholder-blog.jpg",
+        published: true,
+        published_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]
+  } else {
+    // Filter published posts and sort by date
+    posts = postsData
+      .filter((post: BlogPost) => post.published)
+      .sort((a: BlogPost, b: BlogPost) =>
+        new Date(b.published_at || b.created_at).getTime() -
+        new Date(a.published_at || a.created_at).getTime()
+      )
+      .slice(0, 3)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

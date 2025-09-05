@@ -1,0 +1,15 @@
+{
+  "/api/blog-posts/[slug]/route": "/api/blog-posts/[slug]",
+  "/api/blog-posts/route": "/api/blog-posts",
+  "/api/cars/route": "/api/cars",
+  "/api/cars/[id]/route": "/api/cars/[id]",
+  "/_not-found/page": "/_not-found",
+  "/admin/blog/page": "/admin/blog",
+  "/admin/page": "/admin",
+  "/admin/cars/page": "/admin/cars",
+  "/blog/page": "/blog",
+  "/cars/[id]/page": "/cars/[id]",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/page": "/",
+  "/catalogue/page": "/catalogue"
+}

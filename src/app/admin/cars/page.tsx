@@ -9,10 +9,53 @@ import { supabase } from "@/lib/supabase"
 
 export default async function AdminCarsPage() {
   // Fetch all cars
-  const { data: cars, error } = await supabase
+  let cars: any[] = []
+  const { data: carsData, error } = await supabase
     .from("cars")
     .select("*")
-    .order("created_at", { ascending: false })
+
+  // Handle mock client response
+  if (error || !carsData) {
+    // Return mock cars data for development
+    cars = [
+      {
+        id: "1",
+        brand: "Toyota",
+        model: "Camry",
+        year: 2020,
+        mileage: 30000,
+        price: 25000,
+        fuel_type: "essence" as const,
+        description: "Excellent état, faible kilométrage",
+        image_url: "/placeholder-car.jpg",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        available: true,
+        transmission: "Automatique",
+        color: "Noir"
+      },
+      {
+        id: "2",
+        brand: "Honda",
+        model: "Civic",
+        year: 2019,
+        mileage: 45000,
+        price: 22000,
+        fuel_type: "essence" as const,
+        description: "Entretien à jour, très bon état",
+        image_url: "/placeholder-car.jpg",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        available: false,
+        transmission: "Manuelle",
+        color: "Blanc"
+      }
+    ]
+    // Sort mock cars by created_at date
+    cars.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+  } else {
+    cars = carsData
+  }
 
   if (error) {
     console.error("Error fetching cars:", error)

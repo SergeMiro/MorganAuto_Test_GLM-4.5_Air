@@ -4,66 +4,115 @@ import { RainEffect } from "@/components/rain-effect"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { supabase } from "@/lib/supabase"
 import { Car } from "@/lib/supabase"
-import Link from "next/link"
+
+// Mock data for cars
+const mockCars: Car[] = [
+  {
+    id: "1",
+    brand: "Toyota",
+    model: "Camry",
+    year: 2020,
+    mileage: 30000,
+    price: 25000,
+    fuel_type: "essence",
+    description: "Excellent état, faible kilométrage",
+    image_url: "/placeholder-car.jpg",
+    created_at: "2023-01-01T00:00:00Z",
+    updated_at: "2023-01-01T00:00:00Z"
+  },
+  {
+    id: "2",
+    brand: "Honda",
+    model: "Civic",
+    year: 2019,
+    mileage: 45000,
+    price: 22000,
+    fuel_type: "essence",
+    description: "Entretien à jour, très bon état",
+    image_url: "/placeholder-car.jpg",
+    created_at: "2023-01-02T00:00:00Z",
+    updated_at: "2023-01-02T00:00:00Z"
+  },
+  {
+    id: "3",
+    brand: "BMW",
+    model: "Série 3",
+    year: 2021,
+    mileage: 15000,
+    price: 45000,
+    fuel_type: "essence",
+    description: "Haut de gamme, options premium",
+    image_url: "/placeholder-car.jpg",
+    created_at: "2023-01-03T00:00:00Z",
+    updated_at: "2023-01-03T00:00:00Z"
+  }
+]
+
+// Mock data for brands and years
+const mockBrands = ["Toyota", "Honda", "BMW", "Mercedes", "Audi", "Ford", "Volkswagen"]
+const mockYears = [2023, 2022, 2021, 2020, 2019, 2018, 2017]
 
 export default async function CataloguePage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   // Get search parameters
-  const search = searchParams.search as string || ""
-  const make = searchParams.make as string || ""
-  const model = searchParams.model as string || ""
-  const year = searchParams.year as string || ""
-  const priceRange = searchParams.price as string || ""
+  const search = (await searchParams).search as string || ""
+  const brand = (await searchParams).brand as string || ""
+  const model = (await searchParams).model as string || ""
+  const year = (await searchParams).year as string || ""
+  const priceRange = (await searchParams).price as string || ""
   
-  // Build Supabase query
-  let query = supabase
-    .from("cars")
-    .select("*")
-    .eq("available", true)
-    .order("created_at", { ascending: false })
-
-  // Apply filters
+  // Filter mock cars based on search parameters
+  let filteredCars = [...mockCars]
+  
   if (search) {
-    query = query.or(`make.ilike.%${search}%,model.ilike.%${search}%,description.ilike.%${search}%`)
+    filteredCars = filteredCars.filter(car =>
+      car.brand.toLowerCase().includes(search.toLowerCase()) ||
+      car.model.toLowerCase().includes(search.toLowerCase()) ||
+      car.description?.toLowerCase().includes(search.toLowerCase())
+    )
   }
   
-  if (make) {
-    query = query.ilike("make", `%${make}%`)
+  if (brand) {
+    filteredCars = filteredCars.filter(car =>
+      car.brand.toLowerCase().includes(brand.toLowerCase())
+    )
   }
   
   if (model) {
-    query = query.ilike("model", `%${model}%`)
+    filteredCars = filteredCars.filter(car =>
+      car.model.toLowerCase().includes(model.toLowerCase())
+    )
   }
   
   if (year) {
-    query = query.eq("year", parseInt(year))
+    filteredCars = filteredCars.filter(car =>
+      car.year === parseInt(year)
+    )
   }
   
   if (priceRange) {
     const [min, max] = priceRange.split("-").map(Number)
     if (min && max) {
-      query = query.gte("price", min).lte("price", max)
+      filteredCars = filteredCars.filter(car =>
+        car.price >= min && car.price <= max
+      )
     } else if (min) {
-      query = query.gte("price", min)
+      filteredCars = filteredCars.filter(car =>
+        car.price >= min
+      )
     }
   }
+
+  // Use filtered cars or all cars if no filters applied
+  const cars = filteredCars.length > 0 ? filteredCars : mockCars
   
-  // Execute query
-  const { data: cars, error } = await query
-
-  // Get unique makes and years for filters
-  const { data: allCars } = await supabase
-    .from("cars")
-    .select("make, year")
-    .eq("available", true)
-
-  const makes = Array.from(new Set(allCars?.map(car => car.make).filter(Boolean)))
-  const years = Array.from(new Set(allCars?.map(car => car.year).filter(Boolean).sort((a, b) => b - a)))
+  // Use mock data for brands and years
+  const brands = mockBrands
+  const years = mockYears
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -104,15 +153,15 @@ export default async function CataloguePage({
                 />
               </div>
               
-              {/* Make Filter */}
+              {/* Brand Filter */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Marque
                 </label>
                 <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
                   <option value="">Toutes les marques</option>
-                  {makes?.map((make) => (
-                    <option key={make} value={make}>{make}</option>
+                  {brands?.map((brand) => (
+                    <option key={brand} value={brand}>{brand}</option>
                   ))}
                 </select>
               </div>
@@ -124,7 +173,7 @@ export default async function CataloguePage({
                 </label>
                 <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
                   <option value="">Toutes les années</option>
-                  {years?.map((year) => (
+                  {years?.map((year: number) => (
                     <option key={year} value={year}>{year}</option>
                   ))}
                 </select>

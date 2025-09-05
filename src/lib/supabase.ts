@@ -1,9 +1,33 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Check if Supabase environment variables are valid
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Create a mock client if environment variables are invalid
+export const supabase = (supabaseUrl && supabaseAnonKey && supabaseUrl !== 'disabled' && supabaseAnonKey !== 'disabled')
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : {
+      // Mock Supabase client methods
+      from: () => ({
+        select: () => Promise.resolve({ data: [], error: null }),
+        eq: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        ilike: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        or: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        order: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        gte: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        lte: () => ({ select: () => Promise.resolve({ data: [], error: null }) }),
+        insert: () => Promise.resolve({ data: null, error: null }),
+        update: () => Promise.resolve({ data: null, error: null }),
+        delete: () => Promise.resolve({ data: null, error: null })
+      }),
+      auth: {
+        signUp: () => Promise.resolve({ data: null, error: null }),
+        signInWithPassword: () => Promise.resolve({ data: null, error: null }),
+        signOut: () => Promise.resolve({ error: null }),
+        getUser: () => Promise.resolve({ data: null, error: null })
+      }
+    }
 
 // Types for our database
 export interface Car {

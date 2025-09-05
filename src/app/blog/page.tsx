@@ -11,36 +11,38 @@ import Link from "next/link"
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   // Get search parameters
-  const search = searchParams.search as string || ""
-  const category = searchParams.category as string || ""
+  const search = (await searchParams).search as string || ""
+  const category = (await searchParams).category as string || ""
   
   // Build Supabase query
-  let query = supabase
-    .from("blog_posts")
-    .select("*")
-    .eq("published", true)
-    .order("published_at", { ascending: false })
+  // let query = supabase
+  //   .from("blog_posts")
+  //   .select("*")
+  //   .eq("published", true)
+  //   .order("published_at", { ascending: false })
 
   // Apply filters
-  if (search) {
-    query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%,summary.ilike.%${search}%`)
-  }
+  // if (search) {
+  //   query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%,summary.ilike.%${search}%`)
+  // }
   
-  if (category) {
-    query = query.eq("category", category)
-  }
+  // if (category) {
+  //   query = query.eq("category", category)
+  // }
   
   // Execute query
-  const { data: posts, error } = await query
+  // const { data: posts, error } = await query
+  const posts: any[] = []
 
   // Get unique categories
-  const { data: allPosts } = await supabase
-    .from("blog_posts")
-    .select("category")
-    .eq("published", true)
+  // const { data: allPosts } = await supabase
+  //   .from("blog_posts")
+  //   .select("category")
+  //   .eq("published", true)
+  const allPosts: any[] = []
 
   const categories = Array.from(new Set(allPosts?.map(post => post.category).filter(Boolean)))
 

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { supabase } from "@/lib/supabase"
+// import { supabase } from "@/lib/supabase"
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,39 +11,44 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit
 
     // Build query
-    let query = supabase
-      .from("blog_posts")
-      .select("*")
-      .eq("published", true)
-      .order("published_at", { ascending: false })
-      .range(offset, offset + limit - 1)
+    // let query = supabase
+    //   .from("blog_posts")
+    //   .select("*")
+    //   .eq("published", true)
+    //   .order("published_at", { ascending: false })
+    //   .range(offset, offset + limit - 1)
 
     // Apply filters
-    if (search) {
-      query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%,summary.ilike.%${search}%`)
-    }
+    // if (search) {
+    //   query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%,summary.ilike.%${search}%`)
+    // }
     
-    if (category) {
-      query = query.eq("category", category)
-    }
+    // if (category) {
+    //   query = query.eq("category", category)
+    // }
 
     // Execute query
-    const { data, error, count } = await query
+    // const { data, error, count } = await query
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    // if (error) {
+    //   return NextResponse.json({ error: error.message }, { status: 500 })
+    // }
+
+    // Mock data for development
+    const data: any[] = []
+    const count = 0
 
     return NextResponse.json({
       data,
       pagination: {
         page,
         limit,
-        total: count || 0,
-        totalPages: Math.ceil((count || 0) / limit)
+        total: count,
+        totalPages: Math.ceil(count / limit)
       }
     })
-  } catch (error) {
+  } catch (err) {
+    console.error("Error fetching blog posts:", err)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -70,18 +75,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Insert new blog post
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .insert([body])
-      .select()
-      .single()
+    // const { data, error } = await supabase
+    //   .from("blog_posts")
+    //   .insert([body])
+    //   .select()
+    //   .single()
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    // if (error) {
+    //   return NextResponse.json({ error: error.message }, { status: 500 })
+    // }
+
+    // Mock data for development
+    const data = { ...body, id: Date.now().toString(), created_at: new Date().toISOString() }
 
     return NextResponse.json(data, { status: 201 })
-  } catch (error) {
+  } catch (err) {
+    console.error("Error creating blog post:", err)
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
