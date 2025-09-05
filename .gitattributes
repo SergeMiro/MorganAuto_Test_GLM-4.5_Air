@@ -1,0 +1,4 @@
+node_modules/@next/swc-*/*.node filter=lfs diff=lfs merge=lfs -text
+node_modules/**/*.dll filter=lfs diff=lfs merge=lfs -text
+node_modules/**/*.exe filter=lfs diff=lfs merge=lfs -text
+node_modules/**/*.node filter=lfs diff=lfs merge=lfs -text
